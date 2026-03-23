@@ -1,10 +1,11 @@
+import devforces from "./assets/924shots_so.png"
+import { GitHubCalendar } from 'react-github-calendar';
+import lovable from "./assets/456shots_so.png"
+import codeforces from "./assets/670shots_so.png"
+import gamble from "./assets/532shots_so.png"
+
 import { useState, useEffect } from "react";
 import "./index.css";
-import devsImage from "./assets/100xDevsFrontend.png";
-import cypherImage from "./assets/Cypher.png";
-import mayhemImage from "./assets/Mayhem.png";
-import contactImage from "./assets/contact.png";
-import pulseapiImage from "./assets/pulse-api.png";
 
 
 import {
@@ -29,7 +30,6 @@ import { TechBadge } from "./components/ui/TechBadge";
 import { ProjectRow } from "./components/projects/ProjectRow";
 import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
-import { MovieShelf } from "./components/about/MovieShelf";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 
@@ -74,7 +74,7 @@ export function App() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("quantapar@gmail.com");
+    navigator.clipboard.writeText("nagmani@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -140,64 +140,47 @@ export function App() {
 
   const projects = [
     {
-      id: "pulseapi",
-      title: "PulseAPI",
+      id: "devforces",
+      title: "Devforces",
       description:
-        "A real-time API monitoring dashboard. Built with a responsive frosted glass UI and comprehensive system metrics to track endpoint uptime.",
-      tech: ["Bun", "TypeScript", "React", "Postgres", "Prisma"],
+        "A developer community platform to level up your dev game — share projects, compete, and grow together.",
+      tech: ["TypeScript", "React", "Node.js"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
-      githubUrl: "https://github.com/Quantapar/PulseApi",
-      image: pulseapiImage,
+      githubUrl: "https://github.com/Nagmani001/devforces",
+      liveUrl: "https://devforces.nagmani.site",
+      image: devforces,
     },
     {
-      id: "100xdevs",
-      title: "100xDevs Frontend Revamp",
+      id: "lovable",
+      title: "Lovable",
       description:
-        "A complete frontend revamp for the 100xDevs platform. Features immersive web animations, modern UI components, and a robust design system.",
-      tech: ["React", "Tailwind CSS", "Framer Motion"],
-      roles: [
-        { name: "Design", type: "design" },
-        { name: "Dev", type: "dev" },
-      ] as const,
-      githubUrl: "https://github.com/Quantapar/100xDevs-Frontend",
-      liveUrl: "https://100xdevslanding.vercel.app/",
-      image: devsImage,
-    },
-    {
-      id: "cypher",
-      title: "Cypher",
-      description:
-        "A full-stack contest hosting platform. Built for scalability with role-based access, real-time code submissions, and live leaderboards.",
-      tech: ["React", "Bun", "Postgres", "Prisma", "Docker"],
+        "An AI-powered website builder that lets you build beautiful websites with a single prompt.",
+      tech: ["TypeScript", "React", "AI"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
-      githubUrl: "https://github.com/Quantapar/contest-platform",
-      liveUrl: "https://cypherarena.vercel.app/",
-      image: cypherImage,
+      githubUrl: "https://github.com/Nagmani001/lovable",
+      image: lovable,
     },
     {
-      id: "mayhem",
-      title: "Mayhem",
+      id: "codeforces",
+      title: "Codeforces",
       description:
-        "Experimental landing page design. Focusing on micro-interactions, smooth scrolling, and cinematic typography.",
-      tech: ["HTML", "Tailwind", "Motion"],
-      roles: [
-        { name: "Design", type: "design" },
-        { name: "Interactions", type: "prototype" },
-      ] as const,
-      githubUrl: "https://github.com/Quantapar/Tailwind/tree/main/tailwind01",
-      liveUrl: "https://joinmayhem.vercel.app/",
-      image: mayhemImage,
+        "A competitive programming companion — track contests, solve problems, and monitor your Codeforces progress.",
+      tech: ["TypeScript", "React", "APIs"],
+      roles: [{ name: "Fullstack", type: "dev" }] as const,
+      githubUrl: "https://github.com/Nagmani001/codeforces",
+      liveUrl: "https://codeforces.nagmani.site",
+      image: codeforces,
     },
-    // {
-    //   id: "contact-manager",
-    //   title: "Contact Manager",
-    //   description:
-    //     "Robust REST API design pattern demonstration. Features protected routes, input validation, and secure JWT handling.",
-    //   tech: ["Node.js", "Express", "MongoDB", "Zod"],
-    //   roles: [{ name: "Backend Concept", type: "dev" }] as const,
-    //   githubUrl: "https://github.com/Quantapar/contact-manager-api",
-    //   image: contactImage,
-    // },
+    {
+      id: "100xgamble",
+      title: "100xGamble",
+      description:
+        "A Solana-based roulette gambling dApp — place bets, spin the wheel, and win SOL on-chain.",
+      tech: ["Solana", "TypeScript", "React"],
+      roles: [{ name: "Fullstack", type: "dev" }] as const,
+      githubUrl: "https://github.com/Nagmani001/100xGambling",
+      image: gamble,
+    },
   ];
 
   const contributions = [
@@ -286,8 +269,20 @@ export function App() {
               </div>
             </SectionMinimal>
 
-            <SectionMinimal title="Movies I'm lovin'">
-              <MovieShelf />
+            <SectionMinimal title="GitHub">
+              <div className="bg-(--bg-secondary) border border-(--border-color) rounded-2xl p-4 sm:p-5">
+                <div className="w-full flex justify-center">
+                  <GitHubCalendar
+                    username="nagmani001"
+                    year="last"
+                    colorScheme={isDark ? "dark" : "light"}
+                    blockSize={8}
+                    blockMargin={2}
+                    fontSize={11}
+                    showWeekdayLabels={["mon", "wed", "fri"]}
+                  />
+                </div>
+              </div>
             </SectionMinimal>
           </div>
         </main>
@@ -326,46 +321,46 @@ export function App() {
             </SectionMinimal>
 
             <div className="mt-16" id="oss-section">
-            <SectionMinimal title="Open Source Contributions">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {contributions.map((contrib) => (
-                  <a
-                    key={contrib.title}
-                    href={contrib.prUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                  >
-                    <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                      <GitHubIcon />
-                    </div>
-                    <div className="p-6 flex flex-col grow">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                          {contrib.title}
-                        </h3>
-                        <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
-                          <ExternalLinkIcon />
-                        </span>
+              <SectionMinimal title="Open Source Contributions">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  {contributions.map((contrib) => (
+                    <a
+                      key={contrib.title}
+                      href={contrib.prUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+                    >
+                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
+                        <GitHubIcon />
                       </div>
-                      <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                        {contrib.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 mt-auto">
-                        {contrib.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                          >
-                            {t}
+                      <div className="p-6 flex flex-col grow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                            {contrib.title}
+                          </h3>
+                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
+                            <ExternalLinkIcon />
                           </span>
-                        ))}
+                        </div>
+                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                          {contrib.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-auto">
+                          {contrib.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </SectionMinimal>
+                    </a>
+                  ))}
+                </div>
+              </SectionMinimal>
             </div>
           </div>
         </main>
@@ -441,7 +436,7 @@ export function App() {
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
                 I am currently building{" "}
                 <a
-                  href="https://github.com/Quantapar/PulseApi"
+                  href="https://github.com/Nagmani/PulseApi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium wavy-link"
@@ -471,7 +466,7 @@ export function App() {
               <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
                 <span className="text-(--text-secondary)">Get in touch:</span>
                 <span className="font-medium text-(--text-primary)">
-                  quantapar@gmail.com
+                  nagmani@gmail.com
                 </span>
                 <button
                   onClick={copyEmail}
@@ -482,7 +477,7 @@ export function App() {
                 </button>
                 <div className="flex flex-wrap gap-x-4 gap-y-3 mt-4">
                   <a
-                    href="mailto:quantapar@gmail.com"
+                    href="mailto:nagmani@gmail.com"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
                   >
                     <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
@@ -491,7 +486,7 @@ export function App() {
                     <span>Email</span>
                   </a>
                   <a
-                    href="https://x.com/quantapar"
+                    href="https://x.com/nagmani"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
@@ -502,7 +497,7 @@ export function App() {
                     <span>Twitter</span>
                   </a>
                   <a
-                    href="https://github.com/Quantapar"
+                    href="https://github.com/Nagmani"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"

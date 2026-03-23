@@ -6,23 +6,23 @@ export const AboutSection = () => (
     <div className="flex flex-col md:flex-row gap-8 items-start pl-1">
       <div className="relative group w-32 h-32 shrink-0 overflow-hidden rounded-xl border border-(--border-color) hover:border-(--text-muted) transition-colors duration-200 ease-out shadow-sm hover:shadow-md bg-(--bg-tertiary)">
         <img
-          src="/me-color.jpeg"
-          alt="Manu Sharma Color"
+          src="/gemini1.png"
+          alt="Nagmani Upadhyay Pixel Avatar"
           width={128}
           height={128}
           className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10"
         />
         <img
-          src="/me-bw.jpeg"
-          alt="Manu Sharma B&W"
+          src="/gemini1.png"
+          alt="Nagmani Upadhyay Pixel Avatar"
           width={128}
           height={128}
-          className="w-full h-full object-cover transition-transform duration-300 ease-out scale-100 group-hover:scale-[1.03]"
+          className="w-full h-full object-cover transition-transform duration-300 ease-out scale-100 group-hover:scale-[1.03] filter grayscale"
         />
       </div>
       <div>
         <h3 className="text-lg font-medium text-(--text-primary) mb-1">
-          Manu Sharma
+          Nagmani Upadhyay
         </h3>
         <div className="flex items-center gap-1.5 text-[13px] text-(--text-highlight) font-medium mb-4">
           <span>20</span>

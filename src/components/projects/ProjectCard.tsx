@@ -22,12 +22,12 @@ export const ProjectCard = ({
   const Content = (
     <div className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer">
     {image && (
-      <div className="w-full h-48 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative p-4 flex items-center justify-center">
+      <div className="w-full h-48 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
         {image ? (
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover rounded shadow-xs group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
           />
         ) : (
           <div className="text-(--text-muted) opacity-50">
