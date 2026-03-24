@@ -3,6 +3,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 import lovable from "./assets/456shots_so.png"
 import codeforces from "./assets/670shots_so.png"
 import gamble from "./assets/532shots_so.png"
+import appxLogo from "./assets/appx-logo.svg"
 
 import { useState, useEffect } from "react";
 import "./index.css";
@@ -74,7 +75,7 @@ export function App() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("nagmani@gmail.com");
+    navigator.clipboard.writeText("nagmanipd3@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -436,37 +437,31 @@ export function App() {
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
                 I am currently building{" "}
                 <a
-                  href="https://github.com/Nagmani/PulseApi"
+                  href="https://github.com/Nagmani001/lovable"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium wavy-link"
                 >
-                  PulseAPI
+                  Lovable
                 </a>
-                , an API monitoring app.
+                , a website that let's you build other websites
                 <br />
-                <br />I craft interactive web experiences using{" "}
+                <br />
+                Backend-focused developer building scalable,
+                high-performance systems using{" "}
                 <span className="font-medium text-(--text-primary)">
                   TypeScript
-                </span>
-                ,{" "}
-                <span className="font-medium text-(--text-primary)">React</span>
-                ,{" "}
-                <span className="font-medium text-(--text-primary)">
-                  Next.js
-                </span>
-                , and{" "}
-                <span className="font-medium text-(--text-primary)">
-                  PostgreSQL
-                </span>
-                . Driven by a passion for UI design and seamless user
-                interactions.
+                </span>{" "}
+                and{" "}
+                <span className="font-medium text-(--text-primary)">Rust</span>
+                , with a strong emphasis on reliability and clean
+                architecture.
               </p>
 
               <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
                 <span className="text-(--text-secondary)">Get in touch:</span>
                 <span className="font-medium text-(--text-primary)">
-                  nagmani@gmail.com
+                  nagmanipd3@gmail.com
                 </span>
                 <button
                   onClick={copyEmail}
@@ -486,7 +481,7 @@ export function App() {
                     <span>Email</span>
                   </a>
                   <a
-                    href="https://x.com/nagmani"
+                    href="https://x.com/nagmani_twt"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
@@ -497,7 +492,7 @@ export function App() {
                     <span>Twitter</span>
                   </a>
                   <a
-                    href="https://github.com/Nagmani"
+                    href="https://github.com/Nagmani001"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
@@ -508,7 +503,7 @@ export function App() {
                     <span>GitHub</span>
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/manu-sharma-6012bb32a/"
+                    href="https://www.linkedin.com/in/nagmani-pd-367b31197/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
@@ -519,7 +514,7 @@ export function App() {
                     <span>LinkedIn</span>
                   </a>
                   <a
-                    href="https://discord.com/users/762906412564217857"
+                    href="https://discord.com/users/708247939050373130"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
@@ -540,53 +535,30 @@ export function App() {
                 role="Developer"
                 company={
                   <span className="text-[15px] font-medium text-(--text-primary)">
-                    Freelancer
+                    Freelancer / Indie Hacker
                   </span>
                 }
                 duration="Nov 2025 — Present"
               />
               <ExperienceRow
-                role="Fullstack Intern"
+                role="Fullstack Engineer"
                 company={
-                  <span className="flex items-center gap-3">
-                    <a
-                      href="https://www.appx.co.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
-                      aria-label="AppX"
-                    >
-                      <span className="font-black tracking-tighter text-(--text-primary)">
-                        App
-                      </span>
-                      <span className="font-black tracking-tighter text-[#FF3512]">
-                        X
-                      </span>
-                    </a>
-                    <span className="w-px h-4 bg-(--border-color)"></span>
-                    <a
-                      href="https://www.ycombinator.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:opacity-80 transition-opacity flex items-center"
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="rounded-sm"
-                      >
-                        <rect width="24" height="24" fill="#F26522" rx="2" />
-                        <path
-                          d="M7 6L12 14L17 6H15L12 11L9 6H7Z"
-                          fill="white"
-                        />
-                        <rect x="11" y="13" width="2" height="7" fill="white" />
-                      </svg>
-                    </a>
-                  </span>
+                  <a
+                    href="https://www.kraneapps.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-sm text-[15px] leading-none transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
+                    aria-label="Krane Apps"
+                  >
+                    <img
+                      src="https://www.kraneapps.com/images/logo.png"
+                      alt="Krane Apps logo"
+                      className="block h-6 w-6 shrink-0 object-contain"
+                    />
+                    <span className="font-black tracking-tighter leading-none text-(--text-primary)">
+                      KRANE APPS
+                    </span>
+                  </a>
                 }
                 duration="Feb 2026 — Mar 2026"
               />
