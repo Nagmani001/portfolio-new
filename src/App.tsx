@@ -159,6 +159,7 @@ export function App() {
       tech: ["TypeScript", "React", "AI"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
       githubUrl: "https://github.com/Nagmani001/lovable",
+      liveUrl: "https://lovable.nagmani.site",
       image: lovable,
     },
     {
@@ -472,7 +473,7 @@ export function App() {
                 </button>
                 <div className="flex flex-wrap gap-x-4 gap-y-3 mt-4">
                   <a
-                    href="mailto:nagmani@gmail.com"
+                    href="mailto:nagmanipd3@gmail.com"
                     className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
                   >
                     <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
