@@ -185,36 +185,25 @@ export function App() {
     },
   ];
 
-  const contributions = [
-    {
-      title: "100xMobile.com — UI Revamp",
-      description:
-        "Complete UI overhaul of the 100xMobile website. Redesigned the entire app with a modern, polished interface and improved user experience.",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
-      prUrl: "https://github.com/bluntbrain/100xmobile/pull/1",
-    },
-    {
-      title: "Krane Apps — UI Revamp",
-      description:
-        "Full UI revamp of the Krane Apps website with a GitHub-style design. Rebuilt the interface for a cleaner, more professional look.",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
-      prUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
-    },
-  ];
-
   const techStack = [
-    { name: "Framer Motion", colorClass: "badge-framermotion" },
-    { name: "Figma", colorClass: "badge-figma" },
-    { name: "React", colorClass: "badge-react" },
-    { name: "Next.js", colorClass: "badge-nextjs" },
     { name: "TypeScript", colorClass: "badge-typescript" },
-    { name: "Bun", colorClass: "badge-bun" },
     { name: "Node.js", colorClass: "badge-nodejs" },
+    { name: "NestJS", colorClass: "badge-nodejs" },
     { name: "Express", colorClass: "badge-express" },
-    { name: "Postgres", colorClass: "badge-postgresql" },
+    { name: "Fastify", colorClass: "badge-express" },
+    { name: "Rust", colorClass: "badge-nodejs" },
+    { name: "PostgreSQL", colorClass: "badge-postgresql" },
     { name: "MongoDB", colorClass: "badge-mongodb" },
+    { name: "Redis", colorClass: "badge-nodejs" },
+    { name: "Kafka", colorClass: "badge-nodejs" },
     { name: "Docker", colorClass: "badge-docker" },
-    { name: "Tailwind", colorClass: "badge-tailwind" },
+    { name: "AWS", colorClass: "badge-nodejs" },
+    { name: "Linux", colorClass: "badge-nodejs" },
+    { name: "Nginx", colorClass: "badge-nodejs" },
+    { name: "GitHub Actions", colorClass: "badge-nodejs" },
+    { name: "Prometheus", colorClass: "badge-nodejs" },
+    { name: "Grafana", colorClass: "badge-nodejs" },
+    { name: "OpenTelemetry", colorClass: "badge-nodejs" },
   ];
 
   const menuItems = [
@@ -302,16 +291,6 @@ export function App() {
               >
                 Projects
               </button>
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("oss-section")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="text-[12px] font-medium tracking-wide px-3 py-1.5 rounded-lg border bg-(--bg-secondary) border-(--border-color) text-(--text-secondary) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none"
-              >
-                Open Source
-              </button>
             </div>
 
             <SectionMinimal title="Projects" id="projects-section">
@@ -322,48 +301,6 @@ export function App() {
               </div>
             </SectionMinimal>
 
-            <div className="mt-16" id="oss-section">
-              <SectionMinimal title="Open Source Contributions">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {contributions.map((contrib) => (
-                    <a
-                      key={contrib.title}
-                      href={contrib.prUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                        <GitHubIcon />
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                            {contrib.title}
-                          </h3>
-                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
-                            <ExternalLinkIcon />
-                          </span>
-                        </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                          {contrib.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {contrib.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </SectionMinimal>
-            </div>
           </div>
         </main>
       ) : currentPath !== "/" &&
@@ -533,15 +470,6 @@ export function App() {
           <SectionMinimal title="Experience" id="experience">
             <div className="flex flex-col gap-6">
               <ExperienceRow
-                role="Developer"
-                company={
-                  <span className="text-[15px] font-medium text-(--text-primary)">
-                    Freelancer / Indie Hacker
-                  </span>
-                }
-                duration="Nov 2025 — Present"
-              />
-              <ExperienceRow
                 role="Fullstack Engineer"
                 company={
                   <a
@@ -561,7 +489,7 @@ export function App() {
                     </span>
                   </a>
                 }
-                duration="Feb 2026 — Mar 2026"
+                duration="2025 — Present"
               />
             </div>
           </SectionMinimal>
