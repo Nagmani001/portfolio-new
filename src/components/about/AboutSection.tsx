@@ -36,8 +36,7 @@ export const AboutSection = () => (
           </div>
         </div>
         <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg">
-          I'm a Full Stack web developer. I love building products to solve
-          real-world problems and creates MVPs efficiently.
+          Full Stack engineer who lives in the backend. I build systems, manage infra, and break things intentionally. TypeScript and Rust are my tools of choice.
         </p>
       </div>
     </div>

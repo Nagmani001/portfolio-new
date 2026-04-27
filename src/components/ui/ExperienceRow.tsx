@@ -12,12 +12,12 @@ export const ExperienceRow = ({
   description?: string;
 }) => (
   <div className="group pl-1">
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
       <div className="flex items-center gap-3">
         <div className="font-medium text-(--text-primary)">
           {company}
         </div>
-        <div className="text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-colors duration-200 ease-out">
+        <div className="inline-flex items-center text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-colors duration-200 ease-out">
           {role}
         </div>
       </div>
