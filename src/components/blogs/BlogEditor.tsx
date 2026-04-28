@@ -1,6 +1,4 @@
-import { useRef, useState, useCallback } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { useRef, useState, useEffect } from "react";
 import { slugify, estimateReadingTime, type BlogMeta } from "../../lib/blogApi";
 
 interface BlogEditorProps {
@@ -12,51 +10,10 @@ interface BlogEditorProps {
   publishing: boolean;
 }
 
-type ToolbarAction = {
-  label: string;
-  title: string;
-  before: string;
-  after?: string;
-  block?: boolean;
-};
-
-const TOOLBAR: ToolbarAction[] = [
-  { label: "H1", title: "Heading 1", before: "# ", block: true },
-  { label: "H2", title: "Heading 2", before: "## ", block: true },
-  { label: "H3", title: "Heading 3", before: "### ", block: true },
-  { label: "B", title: "Bold", before: "**", after: "**" },
-  { label: "I", title: "Italic", before: "_", after: "_" },
-  { label: "S", title: "Strikethrough", before: "~~", after: "~~" },
-  { label: "`", title: "Inline code", before: "`", after: "`" },
-  { label: "```", title: "Code block", before: "```\n", after: "\n```", block: true },
-  { label: ">", title: "Blockquote", before: "> ", block: true },
-  { label: "—", title: "Horizontal rule", before: "\n---\n", block: true },
-];
-
 interface LinkDialogState {
   type: "link" | "image" | null;
   url: string;
   text: string;
-}
-
-function insertText(
-  textarea: HTMLTextAreaElement,
-  before: string,
-  after = "",
-  block = false
-): { value: string; cursorStart: number; cursorEnd: number } {
-  const start = textarea.selectionStart;
-  const end = textarea.selectionEnd;
-  const selected = textarea.value.substring(start, end);
-  const prefix = block && start > 0 && textarea.value[start - 1] !== "\n" ? "\n" : "";
-  const replacement = `${prefix}${before}${selected}${after}`;
-  const value =
-    textarea.value.substring(0, start) +
-    replacement +
-    textarea.value.substring(end);
-  const cursorStart = start + prefix.length + before.length;
-  const cursorEnd = cursorStart + selected.length;
-  return { value, cursorStart, cursorEnd };
 }
 
 export function BlogEditor({ initial, onPublish, publishing }: BlogEditorProps) {
@@ -65,72 +22,116 @@ export function BlogEditor({ initial, onPublish, publishing }: BlogEditorProps) 
   const [excerpt, setExcerpt] = useState(initial?.meta.excerpt ?? "");
   const [coverImage, setCoverImage] = useState(initial?.meta.coverImage ?? "");
   const [tagsRaw, setTagsRaw] = useState(initial?.meta.tags.join(", ") ?? "");
-  const [content, setContent] = useState(initial?.content ?? "");
-  const [showPreview, setShowPreview] = useState(false);
+  const [htmlContent, setHtmlContent] = useState(markdownToHtml(initial?.content ?? ""));
   const [dialog, setDialog] = useState<LinkDialogState>({ type: null, url: "", text: "" });
   const [slugLocked, setSlugLocked] = useState(!!initial);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [activeFormats, setActiveFormats] = useState({
+    bold: false,
+    italic: false,
+    strikeThrough: false,
+    insertUnorderedList: false,
+    insertOrderedList: false,
+  });
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (editorRef.current && editorRef.current.innerHTML !== htmlContent) {
+      editorRef.current.innerHTML = htmlContent;
+    }
+  }, [htmlContent]);
+
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, []);
 
   const handleTitleChange = (v: string) => {
     setTitle(v);
     if (!slugLocked) setSlugVal(slugify(v));
   };
 
-  const applyAction = useCallback((action: ToolbarAction) => {
-    const ta = textareaRef.current;
-    if (!ta) return;
-    const { value, cursorStart, cursorEnd } = insertText(
-      ta,
-      action.before,
-      action.after ?? "",
-      action.block
-    );
-    setContent(value);
-    requestAnimationFrame(() => {
-      ta.focus();
-      ta.setSelectionRange(cursorStart, cursorEnd);
+  const runCommand = (command: string, value?: string) => {
+    if (!editorRef.current) return;
+    editorRef.current.focus();
+    document.execCommand(command, false, value);
+    setHtmlContent(editorRef.current.innerHTML);
+    syncFormatState();
+  };
+
+  const syncFormatState = () => {
+    if (!editorRef.current) return;
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+      setActiveFormats({
+        bold: false,
+        italic: false,
+        strikeThrough: false,
+        insertUnorderedList: false,
+        insertOrderedList: false,
+      });
+      return;
+    }
+
+    const anchor = selection.anchorNode;
+    if (anchor && !editorRef.current.contains(anchor)) {
+      return;
+    }
+
+    setActiveFormats({
+      bold: !!document.queryCommandState("bold"),
+      italic: !!document.queryCommandState("italic"),
+      strikeThrough: !!document.queryCommandState("strikeThrough"),
+      insertUnorderedList: !!document.queryCommandState("insertUnorderedList"),
+      insertOrderedList: !!document.queryCommandState("insertOrderedList"),
     });
+  };
+
+  useEffect(() => {
+    const handleSelectionChange = () => syncFormatState();
+    document.addEventListener("selectionchange", handleSelectionChange);
+    return () => document.removeEventListener("selectionchange", handleSelectionChange);
   }, []);
 
+  const toolbarButtonClass = (active = false) =>
+    `h-7 px-2 text-[12px] font-semibold rounded-md transition-colors cursor-pointer ${
+      active
+        ? "bg-(--text-primary) text-(--bg-primary)"
+        : "text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-secondary)"
+    }`;
+
   const openLinkDialog = (type: "link" | "image") => {
-    const ta = textareaRef.current;
-    const selected = ta
-      ? ta.value.substring(ta.selectionStart, ta.selectionEnd)
-      : "";
+    const selected = window.getSelection?.()?.toString() ?? "";
     setDialog({ type, url: "", text: selected });
   };
 
   const confirmDialog = () => {
-    const ta = textareaRef.current;
-    if (!ta || !dialog.type) return;
-    const md =
-      dialog.type === "image"
-        ? `![${dialog.text || "image"}](${dialog.url})`
-        : `[${dialog.text || dialog.url}](${dialog.url})`;
-
-    const start = ta.selectionStart;
-    const end = ta.selectionEnd;
-    const value =
-      ta.value.substring(0, start) + md + ta.value.substring(end);
-    setContent(value);
+    if (!editorRef.current || !dialog.type || !dialog.url) return;
+    editorRef.current.focus();
+    if (dialog.type === "image") {
+      const alt = dialog.text || "image";
+      document.execCommand("insertImage", false, dialog.url);
+      const inserted = editorRef.current.querySelector(`img[src="${dialog.url}"]`);
+      if (inserted) inserted.setAttribute("alt", alt);
+    } else {
+      const selected = window.getSelection?.()?.toString().trim();
+      if (selected) {
+        document.execCommand("createLink", false, dialog.url);
+      } else {
+        const text = dialog.text || dialog.url;
+        document.execCommand("insertHTML", false, `<a href="${dialog.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(text)}</a>`);
+      }
+    }
+    setHtmlContent(editorRef.current.innerHTML);
     setDialog({ type: null, url: "", text: "" });
-    requestAnimationFrame(() => {
-      ta.focus();
-      ta.setSelectionRange(start + md.length, start + md.length);
-    });
-  };
-
-  const handleTabKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key !== "Tab") return;
-    e.preventDefault();
-    const ta = e.currentTarget;
-    const { value, cursorStart } = insertText(ta, "  ");
-    setContent(value);
-    requestAnimationFrame(() => ta.setSelectionRange(cursorStart, cursorStart));
   };
 
   const handlePublish = async () => {
+    const markdown = htmlToMarkdown(htmlContent);
     const tags = tagsRaw
       .split(",")
       .map((t) => t.trim())
@@ -142,12 +143,13 @@ export function BlogEditor({ initial, onPublish, publishing }: BlogEditorProps) 
       date: initial?.meta.date ?? new Date().toISOString().split("T")[0],
       tags,
       coverImage: coverImage || undefined,
-      readingTime: estimateReadingTime(content),
+      readingTime: estimateReadingTime(markdown),
     };
-    await onPublish(meta, content);
+    await onPublish(meta, markdown);
   };
 
-  const isValid = title.trim().length > 0 && content.trim().length > 0;
+  const isValid = title.trim().length > 0 && stripHtml(htmlContent).trim().length > 0;
+  const wordCount = stripHtml(htmlContent).trim().split(/\s+/).filter(Boolean).length;
 
   return (
     <div className="space-y-6">
@@ -236,21 +238,31 @@ export function BlogEditor({ initial, onPublish, publishing }: BlogEditorProps) 
         </div>
       </div>
 
-      {/* Editor */}
-      <div className="bg-(--bg-secondary) rounded-2xl border border-(--border-color) overflow-hidden">
-        {/* Toolbar */}
+      {/* Rich text editor */}
+      <div
+        className={
+          isFullscreen
+            ? "fixed inset-0 z-[180] p-4 sm:p-6 md:p-8 bg-(--bg-primary)"
+            : ""
+        }
+      >
+        <div
+          className={`bg-(--bg-secondary) rounded-2xl border border-(--border-color) overflow-hidden ${
+            isFullscreen ? "h-full flex flex-col max-w-6xl mx-auto" : ""
+          }`}
+        >
         <div className="flex items-center gap-1 px-3 py-2 border-b border-(--border-color) bg-(--bg-tertiary) flex-wrap">
-          {TOOLBAR.map((action) => (
-            <button
-              key={action.title}
-              type="button"
-              title={action.title}
-              onClick={() => applyAction(action)}
-              className="h-7 px-2 text-[12px] font-mono font-semibold text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-secondary) rounded-md transition-colors cursor-pointer"
-            >
-              {action.label}
-            </button>
-          ))}
+          <button type="button" title="Heading 1" onClick={() => runCommand("formatBlock", "<h1>")} className={toolbarButtonClass()}>H1</button>
+          <button type="button" title="Heading 2" onClick={() => runCommand("formatBlock", "<h2>")} className={toolbarButtonClass()}>H2</button>
+          <button type="button" title="Heading 3" onClick={() => runCommand("formatBlock", "<h3>")} className={toolbarButtonClass()}>H3</button>
+          <button type="button" title="Bold" onClick={() => runCommand("bold")} className={toolbarButtonClass(activeFormats.bold)}>B</button>
+          <button type="button" title="Italic" onClick={() => runCommand("italic")} className={toolbarButtonClass(activeFormats.italic)}>I</button>
+          <button type="button" title="Strikethrough" onClick={() => runCommand("strikeThrough")} className={toolbarButtonClass(activeFormats.strikeThrough)}>S</button>
+          <button type="button" title="Bullet list" onClick={() => runCommand("insertUnorderedList")} className={toolbarButtonClass(activeFormats.insertUnorderedList)}>• List</button>
+          <button type="button" title="Numbered list" onClick={() => runCommand("insertOrderedList")} className={toolbarButtonClass(activeFormats.insertOrderedList)}>1. List</button>
+          <button type="button" title="Quote" onClick={() => runCommand("formatBlock", "<blockquote>")} className={toolbarButtonClass()}>Quote</button>
+          <button type="button" title="Code block" onClick={() => runCommand("formatBlock", "<pre>")} className={toolbarButtonClass()}>Code</button>
+          <button type="button" title="Horizontal rule" onClick={() => runCommand("insertHorizontalRule")} className={toolbarButtonClass()}>—</button>
           <div className="w-px h-5 bg-(--border-color) mx-1" />
           <button
             type="button"
@@ -271,43 +283,30 @@ export function BlogEditor({ initial, onPublish, publishing }: BlogEditorProps) 
           <div className="flex-1" />
           <button
             type="button"
-            onClick={() => setShowPreview(!showPreview)}
-            className={`h-7 px-3 text-[12px] font-medium rounded-md transition-colors cursor-pointer ${
-              showPreview
-                ? "bg-(--text-primary) text-(--bg-primary)"
-                : "text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-secondary)"
-            }`}
+            title={isFullscreen ? "Exit fullscreen (Esc)" : "Enter fullscreen"}
+            onClick={() => setIsFullscreen((v) => !v)}
+            className="h-7 px-3 text-[12px] font-medium text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-secondary) rounded-md transition-colors cursor-pointer"
           >
-            {showPreview ? "edit" : "preview"}
+            {isFullscreen ? "exit full" : "full screen"}
           </button>
         </div>
-
-        {/* Content area */}
-        {showPreview ? (
-          <div className="p-6 min-h-[420px] blog-prose">
-            {content.trim() ? (
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-            ) : (
-              <p className="text-(--text-muted) text-[14px] italic">Nothing to preview yet.</p>
-            )}
-          </div>
-        ) : (
-          <textarea
-            ref={textareaRef}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            onKeyDown={handleTabKey}
-            placeholder="Start writing in Markdown…"
-            className="w-full min-h-[420px] bg-transparent px-5 py-4 text-[14px] font-mono leading-relaxed text-(--text-primary) placeholder:text-(--text-muted) focus:outline-none resize-y"
-            spellCheck
-          />
-        )}
+        <div
+          ref={editorRef}
+          contentEditable
+          suppressContentEditableWarning
+          onInput={(e) => setHtmlContent((e.target as HTMLDivElement).innerHTML)}
+          className={`w-full bg-transparent px-5 py-4 text-[16px] leading-relaxed text-(--text-primary) focus:outline-none blog-prose ${
+            isFullscreen ? "flex-1 min-h-0 overflow-y-auto" : "min-h-[420px]"
+          }`}
+          style={{ whiteSpace: "pre-wrap" }}
+        />
+        </div>
       </div>
 
       {/* Publish */}
       <div className="flex items-center justify-between gap-4">
         <p className="text-[13px] text-(--text-muted)">
-          ~{estimateReadingTime(content)} min read · {content.trim().split(/\s+/).filter(Boolean).length} words
+          ~{estimateReadingTime(htmlToMarkdown(htmlContent))} min read · {wordCount} words
         </p>
         <button
           type="button"
@@ -379,4 +378,79 @@ export function BlogEditor({ initial, onPublish, publishing }: BlogEditorProps) 
       )}
     </div>
   );
+}
+
+function stripHtml(html: string): string {
+  return html
+    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, "")
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function markdownToHtml(markdown: string): string {
+  if (!markdown.trim()) return "<p></p>";
+  let html = markdown
+    .replace(/^### (.*)$/gm, "<h3>$1</h3>")
+    .replace(/^## (.*)$/gm, "<h2>$1</h2>")
+    .replace(/^# (.*)$/gm, "<h1>$1</h1>")
+    .replace(/^> (.*)$/gm, "<blockquote>$1</blockquote>")
+    .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/_(.*?)_/g, "<em>$1</em>")
+    .replace(/~~(.*?)~~/g, "<s>$1</s>")
+    .replace(/!\[(.*?)\]\((.*?)\)/g, '<img alt="$1" src="$2" />')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  const blocks = html
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => {
+      if (/^<h\d|^<blockquote|^<pre|^<img|^<ul|^<ol|^<hr/.test(block)) return block;
+      return `<p>${block.replace(/\n/g, "<br/>")}</p>`;
+    });
+
+  return blocks.join("");
+}
+
+function htmlToMarkdown(html: string): string {
+  let md = html;
+  md = md.replace(/<br\s*\/?>/gi, "\n");
+  md = md.replace(/<h1[^>]*>(.*?)<\/h1>/gi, "# $1\n\n");
+  md = md.replace(/<h2[^>]*>(.*?)<\/h2>/gi, "## $1\n\n");
+  md = md.replace(/<h3[^>]*>(.*?)<\/h3>/gi, "### $1\n\n");
+  md = md.replace(/<blockquote[^>]*>(.*?)<\/blockquote>/gi, "> $1\n\n");
+  md = md.replace(/<strong[^>]*>(.*?)<\/strong>/gi, "**$1**");
+  md = md.replace(/<b[^>]*>(.*?)<\/b>/gi, "**$1**");
+  md = md.replace(/<em[^>]*>(.*?)<\/em>/gi, "_$1_");
+  md = md.replace(/<i[^>]*>(.*?)<\/i>/gi, "_$1_");
+  md = md.replace(/<s[^>]*>(.*?)<\/s>/gi, "~~$1~~");
+  md = md.replace(/<a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/gi, "[$2]($1)");
+  md = md.replace(/<img[^>]*src="([^"]+)"[^>]*alt="([^"]*)"[^>]*\/?>/gi, "![$2]($1)\n\n");
+  md = md.replace(/<img[^>]*alt="([^"]*)"[^>]*src="([^"]+)"[^>]*\/?>/gi, "![$1]($2)\n\n");
+  md = md.replace(/<pre[^>]*><code[^>]*>([\s\S]*?)<\/code><\/pre>/gi, "```\n$1\n```\n\n");
+  md = md.replace(/<li[^>]*>(.*?)<\/li>/gi, "- $1\n");
+  md = md.replace(/<\/?(ul|ol)[^>]*>/gi, "\n");
+  md = md.replace(/<hr[^>]*\/?>/gi, "\n---\n");
+  md = md.replace(/<\/p>/gi, "\n\n");
+  md = md.replace(/<p[^>]*>/gi, "");
+  md = md.replace(/<[^>]+>/g, "");
+  md = md.replace(/&nbsp;/g, " ");
+  md = md.replace(/&amp;/g, "&");
+  md = md.replace(/&lt;/g, "<");
+  md = md.replace(/&gt;/g, ">");
+  md = md.replace(/&quot;/g, '"');
+  md = md.replace(/&#039;/g, "'");
+  return md.replace(/\n{3,}/g, "\n\n").trim() + "\n";
 }

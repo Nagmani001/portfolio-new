@@ -19,11 +19,11 @@ export function BlogList({ onNavigate }: BlogListProps) {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-        {[0, 1].map((i) => (
+      <div className="flex flex-col gap-4 pl-1">
+        {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="w-full h-36 bg-(--bg-secondary) rounded-2xl border border-(--border-color) animate-pulse"
+            className="w-full h-28 bg-(--bg-secondary) rounded-2xl border border-(--border-color) animate-pulse"
           />
         ))}
       </div>
@@ -51,7 +51,7 @@ export function BlogList({ onNavigate }: BlogListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+    <div className="flex flex-col gap-4 pl-1">
       {blogs.map((blog) => (
         <BlogCard
           key={blog.slug}
