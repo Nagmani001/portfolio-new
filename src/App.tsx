@@ -351,26 +351,26 @@ export function App() {
               return (
                 <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                   <SectionMinimal title="Project Details" divider="medium">
-                  {(project.video || project.image) && (
+                    {(project.video || project.image) && (
                       <div className="w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-sm bg-(--bg-tertiary) pl-1 ml-1 mb-10 pt-4">
-                      {project.video ? (
-                        <video
-                          src={project.video}
-                          className="w-full h-auto"
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          controls
-                          preload="metadata"
-                        />
-                      ) : (
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-auto"
-                        />
-                      )}
+                        {project.video ? (
+                          <video
+                            src={project.video}
+                            className="w-full h-auto"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            controls
+                            preload="metadata"
+                          />
+                        ) : (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-auto"
+                          />
+                        )}
                       </div>
                     )}
 
@@ -556,23 +556,23 @@ export function App() {
                     />
                   </div>
                   <div className="p-7">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-semibold text-(--text-primary)">
-                        100xSchool Solana Hackathon
-                      </h3>
-                      <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
-                        Winner at the 100xDevs-led global Solana hackathon with
-                        21 submissions and a $1,000 USDC total prize pool.
-                      </p>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1">
+                        <h3 className="text-xl font-semibold text-(--text-primary)">
+                          100xSchool Solana Hackathon
+                        </h3>
+                        <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
+                          Winner at the 100xDevs-led global Solana hackathon with
+                          21 submissions and a $1,000 USDC total prize pool.
+                        </p>
+                      </div>
+                      <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
+                        Winner
+                      </span>
                     </div>
-                    <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
-                      Winner
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                      View hackathon listing <ExternalLinkIcon />
                     </span>
-                  </div>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                    View hackathon listing <ExternalLinkIcon />
-                  </span>
                   </div>
                 </a>
               </div>
