@@ -10,6 +10,7 @@ export const ProjectCard = ({
   liveUrl,
   image,
   video,
+  youtubeId,
 }: {
   id: string;
   title: string;
@@ -19,6 +20,7 @@ export const ProjectCard = ({
   liveUrl?: string;
   image?: string;
   video?: string;
+  youtubeId?: string;
 }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const targetUrl = liveUrl || githubUrl || "#";
@@ -53,9 +55,25 @@ export const ProjectCard = ({
       role={hasTarget ? "link" : undefined}
       tabIndex={hasTarget ? 0 : -1}
     >
-    {(video || image) && (
+    {(youtubeId || video || image) && (
       <div className="w-full h-60 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
-        {video ? (
+        {youtubeId ? (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsVideoOpen(true);
+            }}
+            className="absolute inset-0 w-full h-full cursor-zoom-in"
+            title={`Open ${title} video`}
+          >
+            <iframe
+              src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              allow="autoplay"
+              title={title}
+            />
+          </button>
+        ) : video ? (
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -144,7 +162,7 @@ export const ProjectCard = ({
   return (
     <>
       <div className="h-full">{Content}</div>
-      {isVideoOpen && video && (
+      {isVideoOpen && (youtubeId || video) && (
         <div
           className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm p-4 sm:p-8 flex items-center justify-center"
           onClick={() => setIsVideoOpen(false)}
@@ -159,14 +177,24 @@ export const ProjectCard = ({
             >
               Close
             </button>
-            <video
-              className="w-full max-h-[82vh] rounded-xl border border-white/15 bg-black"
-              src={video}
-              autoPlay
-              loop
-              controls
-              playsInline
-            />
+            {youtubeId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1`}
+                className="w-full aspect-video rounded-xl border border-white/15 bg-black"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                title={title}
+              />
+            ) : (
+              <video
+                className="w-full max-h-[82vh] rounded-xl border border-white/15 bg-black"
+                src={video}
+                autoPlay
+                loop
+                controls
+                playsInline
+              />
+            )}
           </div>
         </div>
       )}

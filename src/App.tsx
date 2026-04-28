@@ -2,9 +2,7 @@ import devforces from "./assets/924shots_so.png"
 import { GitHubCalendar } from 'react-github-calendar';
 import lovable from "./assets/456shots_so.png"
 import codeforces from "./assets/670shots_so.png"
-import codeforcesVideo from "./assets/codeforces-video.mp4"
 import gamble from "./assets/532shots_so.png"
-import createRepokitVideo from "./assets/create-repokit.mp4"
 import hackathonImage from "./assets/100xSchoolHackathon.png"
 import appxLogo from "./assets/appx-logo.svg"
 
@@ -202,7 +200,7 @@ export function App() {
       githubUrl: "https://github.com/Nagmani001/codeforces",
       liveUrl: "https://codeforces.nagmani.site",
       image: codeforces,
-      video: codeforcesVideo,
+      youtubeId: "5fsj7ztbcEU",
     },
     {
       id: "100xgamble",
@@ -351,18 +349,15 @@ export function App() {
               return (
                 <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                   <SectionMinimal title="Project Details" divider="medium">
-                    {(project.video || project.image) && (
+                    {(project.youtubeId || project.image) && (
                       <div className="w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-sm bg-(--bg-tertiary) pl-1 ml-1 mb-10 pt-4">
-                        {project.video ? (
-                          <video
-                            src={project.video}
-                            className="w-full h-auto"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            controls
-                            preload="metadata"
+                        {project.youtubeId ? (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1`}
+                            className="w-full aspect-video"
+                            allow="autoplay; fullscreen"
+                            allowFullScreen
+                            title={project.title}
                           />
                         ) : (
                           <img
@@ -600,14 +595,11 @@ export function App() {
                     className="w-full h-56 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative text-left cursor-zoom-in"
                     title="Open CLI demo"
                   >
-                    <video
-                      className="absolute inset-0 w-full h-full object-contain"
-                      src={createRepokitVideo}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
+                    <iframe
+                      src="https://www.youtube.com/embed/JBsZdOzS1sU?autoplay=1&mute=1&loop=1&playlist=JBsZdOzS1sU&controls=0&modestbranding=1&rel=0&playsinline=1"
+                      className="absolute inset-0 w-full h-full pointer-events-none"
+                      allow="autoplay"
+                      title="RepoKit CLI demo"
                     />
                   </button>
                   <div className="p-7 flex flex-col gap-4">
@@ -683,13 +675,12 @@ export function App() {
               >
                 Close
               </button>
-              <video
-                className="w-full max-h-[82vh] rounded-xl border border-white/15 bg-black"
-                src={createRepokitVideo}
-                autoPlay
-                loop
-                controls
-                playsInline
+              <iframe
+                src="https://www.youtube.com/embed/JBsZdOzS1sU?autoplay=1&controls=1&rel=0&modestbranding=1"
+                className="w-full aspect-video rounded-xl border border-white/15 bg-black"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                title="RepoKit CLI demo"
               />
             </div>
           </div>
