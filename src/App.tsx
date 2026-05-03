@@ -3,6 +3,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 import lovable from "./assets/456shots_so.png"
 import codeforces from "./assets/670shots_so.png"
 import gamble from "./assets/532shots_so.png"
+import exchangeCex from "./assets/exchange-cex.png"
 import hackathonImage from "./assets/100xSchoolHackathon.png"
 import appxLogo from "./assets/appx-logo.svg"
 
@@ -178,6 +179,17 @@ export function App() {
       githubUrl: "https://github.com/Nagmani001/devforces",
       liveUrl: "https://devforces.nagmani.site",
       image: devforces,
+    },
+    {
+      id: "exchange",
+      title: "Exchange",
+      description:
+        "A centralized crypto exchange UI with live order book, candlestick charts, limit and market orders, and balances — built for fast market reads and a clean trading workflow.",
+      tech: ["TypeScript", "React", "WebSockets"],
+      roles: [{ name: "Fullstack", type: "dev" }] as const,
+      githubUrl: "https://github.com/Nagmani001/exchange",
+      liveUrl: "https://exchange.nagmani.site",
+      image: exchangeCex,
     },
     {
       id: "lovable",
