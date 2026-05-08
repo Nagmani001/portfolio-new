@@ -5,25 +5,6 @@
 }
 
 :root {
-  --bg-primary: #f8f8f7;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #ebebea;
-  --text-primary: #171717;
-  --text-secondary: #404040;
-  --text-muted: #737373;
-  --border-color: #dcdcda;
-  --accent: #000000;
-  --text-highlight: #262626; 
-  
-  --contrib-0: #e5e7eb; 
-  --contrib-1: #bbf7d0; 
-  --contrib-2: #86efac; 
-  --contrib-3: #4ade80; 
-  --contrib-4: #22c55e; 
-  --line-overlay: color-mix(in srgb, var(--border-color) 66%, transparent);
-}
-
-.dark {
   --bg-primary: #161616;
   --bg-secondary: #1C1C1C;
   --bg-tertiary: #202020;

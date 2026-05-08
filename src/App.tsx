@@ -15,8 +15,6 @@ import { SocialGlowButton } from "./components/ui/SocialGlowButton";
 import { FadeUpContainer, FadeUpItem } from "./components/ui/FadeUp";
 
 import {
-  SunIcon,
-  MoonIcon,
   GitHubIcon,
   ExternalLinkIcon,
   TwitterIcon,
@@ -31,14 +29,13 @@ import { NameFlip } from "./components/ui/NameFlip";
 import { ExperienceRow } from "./components/ui/ExperienceRow";
 import { TechBadge } from "./components/ui/TechBadge";
 import { ProjectCard } from "./components/projects/ProjectCard";
-import { AboutSection } from "./components/about/AboutSection";
+
 import { Footer } from "./components/layout/Footer";
 import { BlogList } from "./components/blogs/BlogList";
 import { BlogPost } from "./components/blogs/BlogPost";
 import { BlogAdmin } from "./components/blogs/BlogAdmin";
 
 export function App() {
-  const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
   const [cliCopied, setCliCopied] = useState(false);
   const [isCliVideoOpen, setIsCliVideoOpen] = useState(false);
@@ -103,17 +100,7 @@ export function App() {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    if (stored === "light" || (!stored && !prefersDark)) {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    } else {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    }
+    document.documentElement.classList.add("dark");
   }, []);
 
   useEffect(() => {
@@ -125,51 +112,6 @@ export function App() {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
-
-  const toggleTheme = (event: React.MouseEvent) => {
-    const isSwitchingToDark = !isDark;
-
-    const toggle = () => {
-      setIsDark(isSwitchingToDark);
-      if (isSwitchingToDark) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-    };
-
-    if (!("startViewTransition" in document)) {
-      toggle();
-      return;
-    }
-
-    const x = event.clientX;
-    const y = event.clientY;
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
-    );
-
-    const transition = (document as any).startViewTransition(toggle);
-
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 900,
-          easing: "cubic-bezier(0.32, 0.72, 0, 1)",
-          pseudoElement: "::view-transition-new(root)",
-        },
-      );
-    });
-  };
 
   const projects = [
     {
@@ -229,32 +171,38 @@ export function App() {
     },
   ];
 
-  const techStack = [
-    { name: "TypeScript", colorClass: "badge-typescript" },
-    { name: "Node.js", colorClass: "badge-nodejs" },
-    { name: "NestJS", colorClass: "badge-nodejs" },
-    { name: "Express", colorClass: "badge-express" },
-    { name: "Fastify", colorClass: "badge-express" },
-    { name: "Rust", colorClass: "badge-nodejs" },
-    { name: "PostgreSQL", colorClass: "badge-postgresql" },
-    { name: "MongoDB", colorClass: "badge-mongodb" },
-    { name: "Redis", colorClass: "badge-nodejs" },
-    { name: "Kafka", colorClass: "badge-nodejs" },
-    { name: "Docker", colorClass: "badge-docker" },
-    { name: "AWS", colorClass: "badge-nodejs" },
-    { name: "Linux", colorClass: "badge-nodejs" },
-    { name: "Nginx", colorClass: "badge-nodejs" },
-    { name: "GitHub Actions", colorClass: "badge-nodejs" },
-    { name: "Prometheus", colorClass: "badge-nodejs" },
-    { name: "Grafana", colorClass: "badge-nodejs" },
-    { name: "OpenTelemetry", colorClass: "badge-nodejs" },
+  const skillCategories = [
+    {
+      title: "Backend & APIs",
+      skills: ["Node.js", "Express", "tRPC", "Django REST Framework", "Firebase", "OpenAI SDK"]
+    },
+    {
+      title: "System Design",
+      skills: ["Event-driven architecture", "CQRS", "Microservices", "REST APIs", "WebSockets", "Monorepos"]
+    },
+    {
+      title: "Databases & Caching",
+      skills: ["PostgreSQL", "MongoDB", "Qdrant", "Redis", "Redis Streams", "Prisma", "Drizzle"]
+    },
+    {
+      title: "DevOps & Cloud",
+      skills: ["Docker", "Kubernetes", "k3s", "KEDA", "CI/CD", "Vercel", "AWS"]
+    },
+    {
+      title: "Frontend",
+      skills: ["React", "Next.js", "Vite", "React Query", "Zustand", "Tailwind CSS", "shadcn/ui"]
+    },
+    {
+      title: "Languages",
+      skills: ["TypeScript", "JavaScript", "Python"]
+    }
   ];
 
   const topNavItems = [
     { id: "projects", label: "Projects", targetPath: "/#projects" },
     { id: "blogs", label: "Blogs", targetPath: "/#blogs" },
     { id: "experience", label: "Experience", targetPath: "/#experience" },
-    { id: "about", label: "About", targetPath: "/about" },
+
   ];
 
   return (
@@ -309,13 +257,6 @@ export function App() {
             >
               <GitHubIcon />
             </a>
-            <button
-              onClick={toggleTheme}
-              className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-(--bg-secondary) text-(--text-muted) hover:text-(--text-primary) transition-colors cursor-pointer"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDark ? <SunIcon /> : <MoonIcon />}
-            </button>
           </div>
         </header>
         <div className="h-16" />
@@ -333,41 +274,7 @@ export function App() {
               onBack={() => navigateTo("/#blogs")}
             />
           </main>
-        ) : currentPath === "/about" ? (
-          <FadeUpContainer className="max-w-5xl mx-auto px-6 py-14 space-y-12 transition-all min-h-[80vh] pb-16">
-            <div className="space-y-8">
-              <FadeUpItem>
-                <AboutSection />
-              </FadeUpItem>
-              <FadeUpItem>
-                <SectionMinimal title="Technologies" divider="subtle">
-                  <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1 mb-8">
-                    {techStack.map((tech) => (
-                      <TechBadge key={tech.name} {...tech} />
-                    ))}
-                  </div>
-                </SectionMinimal>
-              </FadeUpItem>
 
-              <FadeUpItem>
-                <SectionMinimal title="GitHub" divider="medium">
-                  <div className="bg-(--bg-secondary) border border-(--border-color) rounded-2xl p-4 sm:p-5">
-                    <div className="w-full flex justify-center">
-                      <GitHubCalendar
-                        username="nagmani001"
-                        year="last"
-                        colorScheme={isDark ? "dark" : "light"}
-                        blockSize={8}
-                        blockMargin={2}
-                        fontSize={11}
-                        showWeekdayLabels={["mon", "wed", "fri"]}
-                      />
-                    </div>
-                  </div>
-                </SectionMinimal>
-              </FadeUpItem>
-            </div>
-          </FadeUpContainer>
         ) : currentPath !== "/" &&
           currentPath !== "" &&
           !currentPath.includes("#") &&
@@ -673,6 +580,44 @@ export function App() {
                 </article>
               </div>
             </SectionMinimal>
+            </FadeUpItem>
+
+            <FadeUpItem>
+              <SectionMinimal title="Skills" divider="medium">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 pl-1 mb-8 mt-2">
+                  {skillCategories.map((category) => (
+                    <div key={category.title} className="flex flex-col">
+                      <h3 className="text-xl font-medium text-(--text-primary) mb-3 tracking-tight">
+                        {category.title}
+                      </h3>
+                      <div className="h-px w-full bg-(--border-color) mb-5" />
+                      <div className="flex flex-wrap gap-2.5">
+                        {category.skills.map((skill) => (
+                          <TechBadge key={skill} name={skill} />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </SectionMinimal>
+            </FadeUpItem>
+
+            <FadeUpItem>
+              <SectionMinimal title="GitHub" divider="medium">
+                <div className="w-full grayscale-100 pb-4 ">
+                  <div className="min-w-max flex justify-center px-1">
+                    <GitHubCalendar
+                      username="nagmani001"
+                      year="last"
+                      colorScheme="dark"
+                      blockSize={15}
+                      blockMargin={3}
+                      fontSize={14}
+                      showWeekdayLabels={["mon", "wed", "fri"]}
+                    />
+                  </div>
+                </div>
+              </SectionMinimal>
             </FadeUpItem>
           </FadeUpContainer>
         )}
