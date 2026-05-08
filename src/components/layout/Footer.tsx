@@ -33,11 +33,9 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="w-full max-w-5xl mx-auto px-6 pb-10">
+    <footer className="w-full max-w-5xl mx-auto px-6 pb-0">
       <div className="mt-5 flex flex-col h-full items-center justify-end relative overflow-hidden">
-        <div className="text-2xl tracking-tighter text-black/10 dark:text-white/20 select-none text-center">
-          YOUR VIBECODED PORTFOLIO
-        </div>
+        
         <div className="flex flex-col items-center w-full px-4">
           <div
             ref={containerRef}
@@ -74,11 +72,6 @@ export const Footer = () => {
             </h1>
           </div>
 
-          <div className="flex items-center justify-between my-4">
-            <p className="text-[0.7rem] font-light tracking-widest uppercase secondary">
-              Built with ♥ &amp; TypeScript
-            </p>
-          </div>
         </div>
       </div>
     </footer>
