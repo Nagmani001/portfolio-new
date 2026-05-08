@@ -55,69 +55,16 @@ body {
   isolation: isolate;
 }
 
-.line-grid-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-image:
-    linear-gradient(var(--line-overlay) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line-overlay) 1px, transparent 1px);
-  background-size: 100% 120px, 140px 100%;
-  background-position: 0 0, 0 0;
-  background-repeat: repeat, repeat;
-  opacity: 0.62;
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.82) 72%,
-    rgba(0, 0, 0, 0.48) 90%,
-    transparent 100%
-  );
-}
+
 
 .section-division {
   position: relative;
   padding-top: 1.2rem;
-  border-top: 1px solid color-mix(in srgb, var(--line-overlay) 62%, transparent);
-}
-
-.section-division::before {
-  content: "";
-  position: absolute;
-  left: -100vw;
-  right: -100vw;
-  top: 0;
-  height: 0;
-  pointer-events: none;
 }
 
 .top-header-shell {
   position: relative;
-  border-top: 1px solid var(--line-overlay);
-  border-bottom: 1px solid var(--line-overlay);
-  background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--line-overlay) 82%, transparent),
-    0 -1px 0 color-mix(in srgb, var(--line-overlay) 72%, transparent);
-}
-
-.top-header-shell::before,
-.top-header-shell::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--line-overlay);
-}
-
-.top-header-shell::before {
-  left: 0;
-}
-
-.top-header-shell::after {
-  right: 0;
+  
 }
 
 @keyframes text-flip {

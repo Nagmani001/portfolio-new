@@ -6,10 +6,13 @@ import gamble from "./assets/532shots_so.png"
 import exchangeCex from "./assets/exchange-cex.png"
 import hackathonImage from "./assets/100xSchoolHackathon.png"
 import appxLogo from "./assets/appx-logo.svg"
+import { Dithering } from '@paper-design/shaders-react';
 
 import { useState, useEffect } from "react";
 import "./index.css";
 
+import { SocialGlowButton } from "./components/ui/SocialGlowButton";
+import { FadeUpContainer, FadeUpItem } from "./components/ui/FadeUp";
 
 import {
   SunIcon,
@@ -184,7 +187,7 @@ export function App() {
       id: "exchange",
       title: "Exchange",
       description:
-        "A centralized crypto exchange UI with live order book, candlestick charts, limit and market orders, and balances — built for fast market reads and a clean trading workflow.",
+        "A centralized crypto exchange UI with live order book, candlestick charts, limit and market orders, and balances.",
       tech: ["TypeScript", "React", "WebSockets"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
       githubUrl: "https://github.com/Nagmani001/exchange",
@@ -256,30 +259,40 @@ export function App() {
 
   return (
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <div className="line-grid-overlay" aria-hidden="true" />
+      <div 
+        className="fixed inset-0 pointer-events-none z-[-2]"
+        style={{
+          maskImage: "radial-gradient(ellipse at bottom left, black 0%, transparent 60%)",
+          WebkitMaskImage: "radial-gradient(ellipse at bottom left, black 0%, transparent 60%)"
+        }}
+      >
+        <Dithering
+          width="100%"
+          height="100%"
+          colorBack="#161616"
+          colorFront="#333333"
+          shape="simplex"
+          type="4x4"
+          size={2}
+          speed={0.6}
+          scale={0.6}
+        />
+      </div>
+
       <div className="relative z-10">
-        <header className="fixed top-0 left-0 right-0 z-50 px-2 pt-2 backdrop-blur-sm">
+        <header className="fixed top-0 left-0 right-0 z-50 px-2 pt-2">
           <div className="top-header-shell max-w-5xl mx-auto h-12 flex items-center gap-2 px-3">
-            <button
-              onClick={(e) => navigateTo("/", e)}
-              className="text-base font-semibold tracking-tight text-(--text-primary) hover:text-(--text-secondary) transition-colors cursor-pointer"
-            >
-              NP
-            </button>
+            
             <div className="flex-1" />
             <nav className="hidden sm:flex items-center gap-5">
               {topNavItems.map((item) => {
-                const isActive =
-                  item.id === "about"
-                    ? currentPath === "/about"
-                    : currentPath === "/" || currentPath === "";
+                
                 return (
                   <button
                     key={item.id}
                     onClick={(e) => navigateTo(item.targetPath, e)}
-                    className={`text-[14px] font-medium transition-colors cursor-pointer ${isActive
-                      ? "text-(--text-primary)"
-                      : "text-(--text-muted) hover:text-(--text-primary)"
+                    className={`text-[14px] font-medium transition-colors cursor-pointer 
+                      "text-(--text-muted) hover:text-(--text-primary)"
                       }`}
                   >
                     {item.label}
@@ -291,7 +304,7 @@ export function App() {
               href="https://github.com/Nagmani001"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center text-(--text-muted) hover:text-(--text-primary) transition-colors"
+              className="hidden sm:inline-flex mx-2 scale-110 items-center text-(--text-muted) hover:text-(--text-primary) transition-colors"
               aria-label="GitHub"
             >
               <GitHubIcon />
@@ -321,34 +334,40 @@ export function App() {
             />
           </main>
         ) : currentPath === "/about" ? (
-          <main className="max-w-5xl mx-auto px-6 py-14 space-y-12 transition-all min-h-[80vh] pb-16">
-            <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
-              <AboutSection />
-              <SectionMinimal title="Technologies" divider="subtle">
-                <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1 mb-8">
-                  {techStack.map((tech) => (
-                    <TechBadge key={tech.name} {...tech} />
-                  ))}
-                </div>
-              </SectionMinimal>
-
-              <SectionMinimal title="GitHub" divider="medium">
-                <div className="bg-(--bg-secondary) border border-(--border-color) rounded-2xl p-4 sm:p-5">
-                  <div className="w-full flex justify-center">
-                    <GitHubCalendar
-                      username="nagmani001"
-                      year="last"
-                      colorScheme={isDark ? "dark" : "light"}
-                      blockSize={8}
-                      blockMargin={2}
-                      fontSize={11}
-                      showWeekdayLabels={["mon", "wed", "fri"]}
-                    />
+          <FadeUpContainer className="max-w-5xl mx-auto px-6 py-14 space-y-12 transition-all min-h-[80vh] pb-16">
+            <div className="space-y-8">
+              <FadeUpItem>
+                <AboutSection />
+              </FadeUpItem>
+              <FadeUpItem>
+                <SectionMinimal title="Technologies" divider="subtle">
+                  <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1 mb-8">
+                    {techStack.map((tech) => (
+                      <TechBadge key={tech.name} {...tech} />
+                    ))}
                   </div>
-                </div>
-              </SectionMinimal>
+                </SectionMinimal>
+              </FadeUpItem>
+
+              <FadeUpItem>
+                <SectionMinimal title="GitHub" divider="medium">
+                  <div className="bg-(--bg-secondary) border border-(--border-color) rounded-2xl p-4 sm:p-5">
+                    <div className="w-full flex justify-center">
+                      <GitHubCalendar
+                        username="nagmani001"
+                        year="last"
+                        colorScheme={isDark ? "dark" : "light"}
+                        blockSize={8}
+                        blockMargin={2}
+                        fontSize={11}
+                        showWeekdayLabels={["mon", "wed", "fri"]}
+                      />
+                    </div>
+                  </div>
+                </SectionMinimal>
+              </FadeUpItem>
             </div>
-          </main>
+          </FadeUpContainer>
         ) : currentPath !== "/" &&
           currentPath !== "" &&
           !currentPath.includes("#") &&
@@ -401,7 +420,7 @@ export function App() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                          className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
                         >
                           Visit Website <ExternalLinkIcon />
                         </a>
@@ -423,8 +442,9 @@ export function App() {
             })()}
           </main>
         ) : (
-          <main className="max-w-5xl mx-auto px-6 py-14 space-y-12 transition-all min-h-[80vh] pb-16">
-            <header id="home" className="flex flex-col pl-1 scroll-mt-24">
+          <FadeUpContainer className="max-w-5xl mx-auto px-6 py-14 space-y-12 transition-all min-h-[80vh] pb-16">
+            <FadeUpItem>
+              <header id="home" className="flex flex-col pl-1 scroll-mt-24">
               <NameFlip />
 
               <div className="flex flex-col gap-6 mt-4">
@@ -440,78 +460,44 @@ export function App() {
                   architecture, and security.
                 </p>
 
-                <div className="inline-flex items-center flex-wrap gap-2 text-[16px]">
-                  <span className="text-(--text-secondary)">Get in touch:</span>
-                  <span className="font-medium text-(--text-primary)">
-                    nagmanipd3@gmail.com
-                  </span>
-                  <button
-                    onClick={copyEmail}
-                    className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
-                    title="Copy email"
-                  >
-                    {copied ? <CheckIcon /> : <CopyIcon />}
-                  </button>
-                  <div className="flex flex-wrap gap-x-4 gap-y-3 mt-4">
-                    <a
-                      href="mailto:nagmanipd3@gmail.com"
-                      className="group flex items-center gap-2 text-[14px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
+                <div className="flex flex-col gap-4">
+                  <div className="inline-flex items-center flex-wrap gap-2 text-[16px]">
+                    <span className="text-(--text-secondary)">Get in touch:</span>
+                    <span className="font-medium text-(--text-primary)">
+                      nagmanipd3@gmail.com
+                    </span>
+                    <button
+                      onClick={copyEmail}
+                      className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
+                      title="Copy email"
                     >
-                      <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                        <MailIcon />
-                      </span>
-                      <span>Email</span>
-                    </a>
-                    <a
-                      href="https://x.com/nagmani_twt"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-2 text-[14px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                    >
-                      <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                        <TwitterIcon />
-                      </span>
-                      <span>Twitter</span>
-                    </a>
-                    <a
-                      href="https://github.com/Nagmani001"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-2 text-[14px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                    >
-                      <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                        <GitHubIcon />
-                      </span>
-                      <span>GitHub</span>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/nagmani-pd-367b31197/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-2 text-[14px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                    >
-                      <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                        <LinkedInIcon />
-                      </span>
-                      <span>LinkedIn</span>
-                    </a>
-                    <a
-                      href="https://discord.com/users/708247939050373130"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-2 text-[14px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                    >
-                      <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                        <DiscordIcon />
-                      </span>
-                      <span>Discord</span>
-                    </a>
+                      {copied ? <CheckIcon /> : <CopyIcon />}
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-x-1 gap-y-3 mt-1">
+                    <SocialGlowButton href="mailto:nagmanipd3@gmail.com" variant="orange">
+                      <MailIcon />
+                    </SocialGlowButton>
+                    <SocialGlowButton href="https://x.com/nagmani_twt" variant="blue">
+                      <TwitterIcon />
+                    </SocialGlowButton>
+                    <SocialGlowButton href="https://github.com/Nagmani001" variant="dark">
+                      <GitHubIcon />
+                    </SocialGlowButton>
+                    <SocialGlowButton href="https://www.linkedin.com/in/nagmani-pd-367b31197/" variant="blue">
+                      <LinkedInIcon />
+                    </SocialGlowButton>
+                    <SocialGlowButton href="https://discord.com/users/708247939050373130" variant="purple">
+                      <DiscordIcon />
+                    </SocialGlowButton>
                   </div>
                 </div>
               </div>
             </header>
+            </FadeUpItem>
 
-            <SectionMinimal title="Experience" id="experience" divider="medium">
+            <FadeUpItem>
+              <SectionMinimal title="Experience" id="experience" divider="medium">
               <div className="flex flex-col gap-6">
                 <ExperienceRow
                   role="Fullstack Engineer"
@@ -537,29 +523,41 @@ export function App() {
                 />
               </div>
             </SectionMinimal>
-            <SectionMinimal title="Blogs" id="blogs" divider="subtle">
+            </FadeUpItem>
+
+            <FadeUpItem>
+              <SectionMinimal title="Blogs" id="blogs" divider="subtle">
               <BlogList onNavigate={navigateTo} />
             </SectionMinimal>
-            <SectionMinimal title="Projects" id="projects" divider="strong">
+            </FadeUpItem>
+
+            <FadeUpItem>
+              <SectionMinimal title="Projects" id="projects" divider="strong">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
                 {projects.map((project) => (
                   <ProjectCard key={project.id} {...project} />
                 ))}
               </div>
             </SectionMinimal>
-            <SectionMinimal title="Hackathon" id="hackathon" divider="medium">
+            </FadeUpItem>
+
+            <FadeUpItem>
+              <SectionMinimal title="Hackathon" id="hackathon" divider="medium">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
                 <a
                   href={hackathonUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                  className="group block relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
                 >
+                  {/* Aesthetic double border and inset shadow overlay */}
+                  <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
+                  
                   <div className="w-full h-64 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
                     <img
                       src={hackathonImage}
                       alt="100xSchool Solana Hackathon win banner"
-                      className="absolute inset-0 w-full h-full object-contain p-1.5"
+                      className="absolute inset-0 w-full h-full object-contain bg-white p-1.5"
                     />
                   </div>
                   <div className="p-7">
@@ -584,10 +582,13 @@ export function App() {
                 </a>
               </div>
             </SectionMinimal>
-            <SectionMinimal title="CLI & TUI" id="cli-tui" divider="medium">
+            </FadeUpItem>
+
+            <FadeUpItem>
+              <SectionMinimal title="CLI & TUI" id="cli-tui" divider="medium">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
                 <article
-                  className="group relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
+                  className="group relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
                   onClick={handleCliCardOpen}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -599,6 +600,9 @@ export function App() {
                   tabIndex={0}
                   aria-label="Open RepoKit npm package"
                 >
+                  {/* Aesthetic double border and inset shadow overlay */}
+                  <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
+
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -669,7 +673,8 @@ export function App() {
                 </article>
               </div>
             </SectionMinimal>
-          </main>
+            </FadeUpItem>
+          </FadeUpContainer>
         )}
 
         {isCliVideoOpen && (

@@ -43,7 +43,7 @@ export const ProjectCard = ({
 
   const Content = (
     <div
-      className={`group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full min-h-[32rem] ${hasTarget ? "cursor-pointer" : "cursor-default"}`}
+      className={`group relative bg-(--bg-secondary) rounded-xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full ${hasTarget ? "cursor-pointer" : "cursor-default"}`}
       onClick={openProject}
       onKeyDown={(e) => {
         if (!hasTarget) return;
@@ -55,8 +55,11 @@ export const ProjectCard = ({
       role={hasTarget ? "link" : undefined}
       tabIndex={hasTarget ? 0 : -1}
     >
+      {/* Aesthetic double border and inset shadow overlay */}
+      <div className="pointer-events-none absolute inset-0 z-20 rounded-xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1),inset_0_4px_24px_rgba(255,255,255,0.05)] transition-shadow duration-300" />
+      
     {(youtubeId || video || image) && (
-      <div className="w-full h-60 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
+      <div className="w-full aspect-video bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
         {youtubeId ? (
           <button
             onClick={(e) => {
@@ -106,14 +109,14 @@ export const ProjectCard = ({
       </div>
     )}
 
-    <div className="p-7 flex flex-col grow">
+    <div className="p-5 flex flex-col grow">
       <div className="flex items-start justify-between mb-4 gap-4">
         <h3 className="text-xl font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
           {title}
         </h3>
       </div>
 
-      <p className="text-(--text-secondary) text-[16px] leading-relaxed mb-8 min-h-[96px]">
+      <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-6">
         {description}
       </p>
 
@@ -133,8 +136,7 @@ export const ProjectCard = ({
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-(--border-color) bg-(--text-primary) text-(--bg-primary) px-3 py-2 text-[13px] font-semibold hover:bg-(--text-secondary) transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-(--border-color) bg-(--text-primary) text-(--bg-primary) px-3 py-2 text-[13px] font-semibold hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
           >
             View Live <ExternalLinkIcon />
           </a>
