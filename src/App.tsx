@@ -174,27 +174,27 @@ export function App() {
   const skillCategories = [
     {
       title: "Backend & APIs",
-      skills: ["Node.js", "Express", "tRPC", "Django REST Framework", "Firebase", "OpenAI SDK"]
+      skills: ["Node.js", "Express", "Actix-web", "graphql", "Django REST Framework", "firecracker", "e2b orchestration"]
     },
     {
       title: "System Design",
-      skills: ["Event-driven architecture", "CQRS", "Microservices", "REST APIs", "WebSockets", "Monorepos"]
+      skills: ["Event-driven architecture", "Microservices", "REST APIs", "WebSockets", "Server-Sent Events", "Monorepos", "Turborepo"]
     },
     {
       title: "Databases & Caching",
-      skills: ["PostgreSQL", "MongoDB", "Qdrant", "Redis", "Redis Streams", "Prisma", "Drizzle"]
+      skills: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "Drizzle"]
     },
     {
       title: "DevOps & Cloud",
-      skills: ["Docker", "Kubernetes", "k3s", "KEDA", "CI/CD", "Vercel", "AWS"]
+      skills: ["Docker", "Kubernetes", "k8s", "KEDA", "CI/CD", "GitHub Actions", "AWS", "GCP"]
     },
     {
       title: "Frontend",
-      skills: ["React", "Next.js", "Vite", "React Query", "Zustand", "Tailwind CSS", "shadcn/ui"]
+      skills: ["React", "Next.js", "React Query", "Zustand", "Jotai", "Tailwind CSS", "shadcn/ui"]
     },
     {
       title: "Languages",
-      skills: ["TypeScript", "JavaScript", "Python"]
+      skills: ["TypeScript", "JavaScript", "Python", "Rust"]
     }
   ];
 
@@ -207,7 +207,7 @@ export function App() {
 
   return (
     <div className="app-shell min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-[-2]"
         style={{
           maskImage: "radial-gradient(ellipse at bottom left, black 0%, transparent 60%)",
@@ -230,11 +230,11 @@ export function App() {
       <div className="relative z-10">
         <header className="fixed top-0 left-0 right-0 z-50 px-2 pt-2">
           <div className="top-header-shell max-w-5xl mx-auto h-12 flex items-center gap-2 px-3">
-            
+
             <div className="flex-1" />
             <nav className="hidden sm:flex items-center gap-5">
               {topNavItems.map((item) => {
-                
+
                 return (
                   <button
                     key={item.id}
@@ -352,234 +352,234 @@ export function App() {
           <FadeUpContainer className="max-w-5xl mx-auto px-6 py-14 space-y-12 transition-all min-h-[80vh] pb-16">
             <FadeUpItem>
               <header id="home" className="flex flex-col pl-1 scroll-mt-24">
-              <NameFlip />
+                <NameFlip />
 
-              <div className="flex flex-col gap-6 mt-4">
-                <p className="text-(--text-secondary) text-[16px] leading-relaxed max-w-2xl font-normal">
-                  Backend-focused developer building scalable,
-                  high-performance systems using{" "}
-                  <span className="font-medium text-(--text-primary)">
-                    TypeScript
-                  </span>{" "}
-                  and{" "}
-                  <span className="font-medium text-(--text-primary)">Rust</span>
-                  , with a strong emphasis on reliability and clean
-                  architecture, and security.
-                </p>
-
-                <div className="flex flex-col gap-4">
-                  <div className="inline-flex items-center flex-wrap gap-2 text-[16px]">
-                    <span className="text-(--text-secondary)">Get in touch:</span>
+                <div className="flex flex-col gap-6 mt-4">
+                  <p className="text-(--text-secondary) text-[16px] leading-relaxed max-w-2xl font-normal">
+                    Backend-focused developer building scalable,
+                    high-performance systems using{" "}
                     <span className="font-medium text-(--text-primary)">
-                      nagmanipd3@gmail.com
-                    </span>
-                    <button
-                      onClick={copyEmail}
-                      className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
-                      title="Copy email"
-                    >
-                      {copied ? <CheckIcon /> : <CopyIcon />}
-                    </button>
-                  </div>
-                  <div className="flex flex-wrap gap-x-1 gap-y-3 mt-1">
-                    <SocialGlowButton href="mailto:nagmanipd3@gmail.com" variant="orange">
-                      <MailIcon />
-                    </SocialGlowButton>
-                    <SocialGlowButton href="https://x.com/nagmani_twt" variant="blue">
-                      <TwitterIcon />
-                    </SocialGlowButton>
-                    <SocialGlowButton href="https://github.com/Nagmani001" variant="dark">
-                      <GitHubIcon />
-                    </SocialGlowButton>
-                    <SocialGlowButton href="https://www.linkedin.com/in/nagmani-pd-367b31197/" variant="blue">
-                      <LinkedInIcon />
-                    </SocialGlowButton>
-                    <SocialGlowButton href="https://discord.com/users/708247939050373130" variant="purple">
-                      <DiscordIcon />
-                    </SocialGlowButton>
+                      TypeScript
+                    </span>{" "}
+                    and{" "}
+                    <span className="font-medium text-(--text-primary)">Rust</span>
+                    , with a strong emphasis on reliability and clean
+                    architecture, and security.
+                  </p>
+
+                  <div className="flex flex-col gap-4">
+                    <div className="inline-flex items-center flex-wrap gap-2 text-[16px]">
+                      <span className="text-(--text-secondary)">Get in touch:</span>
+                      <span className="font-medium text-(--text-primary)">
+                        nagmanipd3@gmail.com
+                      </span>
+                      <button
+                        onClick={copyEmail}
+                        className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
+                        title="Copy email"
+                      >
+                        {copied ? <CheckIcon /> : <CopyIcon />}
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-x-1 gap-y-3 mt-1">
+                      <SocialGlowButton href="mailto:nagmanipd3@gmail.com" variant="orange">
+                        <MailIcon />
+                      </SocialGlowButton>
+                      <SocialGlowButton href="https://x.com/nagmani_twt" variant="blue">
+                        <TwitterIcon />
+                      </SocialGlowButton>
+                      <SocialGlowButton href="https://github.com/Nagmani001" variant="dark">
+                        <GitHubIcon />
+                      </SocialGlowButton>
+                      <SocialGlowButton href="https://www.linkedin.com/in/nagmani-pd-367b31197/" variant="blue">
+                        <LinkedInIcon />
+                      </SocialGlowButton>
+                      <SocialGlowButton href="https://discord.com/users/708247939050373130" variant="purple">
+                        <DiscordIcon />
+                      </SocialGlowButton>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </header>
+              </header>
             </FadeUpItem>
 
             <FadeUpItem>
               <SectionMinimal title="Experience" id="experience" divider="medium">
-              <div className="flex flex-col gap-6">
-                <ExperienceRow
-                  role="Fullstack Engineer"
-                  company={
-                    <a
-                      href="https://www.kraneapps.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-sm text-[15px] leading-tight transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                      aria-label="Krane Apps"
-                    >
-                      <img
-                        src="https://www.kraneapps.com/images/logo.png"
-                        alt="Krane Apps logo"
-                        className="block h-6 w-6 shrink-0 object-contain"
-                      />
-                      <span className="font-black tracking-tighter leading-tight text-(--text-primary)">
-                        KRANE APPS
-                      </span>
-                    </a>
-                  }
-                  duration="2025 — Present"
-                />
-              </div>
-            </SectionMinimal>
+                <div className="flex flex-col gap-6">
+                  <ExperienceRow
+                    role="Fullstack Engineer"
+                    company={
+                      <a
+                        href="https://www.kraneapps.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-sm text-[15px] leading-tight transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
+                        aria-label="Krane Apps"
+                      >
+                        <img
+                          src="https://www.kraneapps.com/images/logo.png"
+                          alt="Krane Apps logo"
+                          className="block h-6 w-6 shrink-0 object-contain"
+                        />
+                        <span className="font-black tracking-tighter leading-tight text-(--text-primary)">
+                          KRANE APPS
+                        </span>
+                      </a>
+                    }
+                    duration="2025 — Present"
+                  />
+                </div>
+              </SectionMinimal>
             </FadeUpItem>
 
             <FadeUpItem>
               <SectionMinimal title="Blogs" id="blogs" divider="subtle">
-              <BlogList onNavigate={navigateTo} />
-            </SectionMinimal>
+                <BlogList onNavigate={navigateTo} />
+              </SectionMinimal>
             </FadeUpItem>
 
             <FadeUpItem>
               <SectionMinimal title="Projects" id="projects" divider="strong">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {projects.map((project) => (
-                  <ProjectCard key={project.id} {...project} />
-                ))}
-              </div>
-            </SectionMinimal>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  {projects.map((project) => (
+                    <ProjectCard key={project.id} {...project} />
+                  ))}
+                </div>
+              </SectionMinimal>
             </FadeUpItem>
 
             <FadeUpItem>
               <SectionMinimal title="Hackathon" id="hackathon" divider="medium">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                <a
-                  href={hackathonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-                >
-                  {/* Aesthetic double border and inset shadow overlay */}
-                  <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
-                  
-                  <div className="w-full h-64 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
-                    <img
-                      src={hackathonImage}
-                      alt="100xSchool Solana Hackathon win banner"
-                      className="absolute inset-0 w-full h-full object-contain bg-white p-1.5"
-                    />
-                  </div>
-                  <div className="p-7">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <h3 className="text-xl font-semibold text-(--text-primary)">
-                          100xSchool Solana Hackathon
-                        </h3>
-                        <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
-                          Winner at the 100xDevs-led global Solana hackathon with
-                          21 submissions and a $1,000 USDC total prize pool.
-                        </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  <a
+                    href={hackathonUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                  >
+                    {/* Aesthetic double border and inset shadow overlay */}
+                    <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
+
+                    <div className="w-full h-64 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
+                      <img
+                        src={hackathonImage}
+                        alt="100xSchool Solana Hackathon win banner"
+                        className="absolute inset-0 w-full h-full object-contain bg-white p-1.5"
+                      />
+                    </div>
+                    <div className="p-7">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="space-y-1">
+                          <h3 className="text-xl font-semibold text-(--text-primary)">
+                            100xSchool Solana Hackathon
+                          </h3>
+                          <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
+                            Winner at the 100xDevs-led global Solana hackathon with
+                            21 submissions and a $1,000 USDC total prize pool.
+                          </p>
+                        </div>
+                        <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
+                          Winner
+                        </span>
                       </div>
-                      <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
-                        Winner
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
+                        View hackathon listing <ExternalLinkIcon />
                       </span>
                     </div>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                      View hackathon listing <ExternalLinkIcon />
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </SectionMinimal>
+                  </a>
+                </div>
+              </SectionMinimal>
             </FadeUpItem>
 
             <FadeUpItem>
               <SectionMinimal title="CLI & TUI" id="cli-tui" divider="medium">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                <article
-                  className="group relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
-                  onClick={handleCliCardOpen}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      window.open(cliNpmUrl, "_blank", "noopener,noreferrer");
-                    }
-                  }}
-                  role="link"
-                  tabIndex={0}
-                  aria-label="Open RepoKit npm package"
-                >
-                  {/* Aesthetic double border and inset shadow overlay */}
-                  <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsCliVideoOpen(true);
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  <article
+                    className="group relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
+                    onClick={handleCliCardOpen}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        window.open(cliNpmUrl, "_blank", "noopener,noreferrer");
+                      }
                     }}
-                    className="w-full h-56 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative text-left cursor-zoom-in"
-                    title="Open CLI demo"
+                    role="link"
+                    tabIndex={0}
+                    aria-label="Open RepoKit npm package"
                   >
-                    <iframe
-                      src="https://www.youtube.com/embed/JBsZdOzS1sU?autoplay=1&mute=1&loop=1&playlist=JBsZdOzS1sU&controls=0&modestbranding=1&rel=0&playsinline=1"
-                      className="absolute inset-0 w-full h-full pointer-events-none"
-                      allow="autoplay"
-                      title="RepoKit CLI demo"
-                    />
-                  </button>
-                  <div className="p-7 flex flex-col gap-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <h3 className="text-xl font-semibold text-(--text-primary) tracking-tight">
-                          RepoKit
-                        </h3>
-                        <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
-                          Bootstraps a Turborepo with auth, backend, infra, and
-                          sensible production defaults.
-                        </p>
+                    {/* Aesthetic double border and inset shadow overlay */}
+                    <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsCliVideoOpen(true);
+                      }}
+                      className="w-full h-56 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative text-left cursor-zoom-in"
+                      title="Open CLI demo"
+                    >
+                      <iframe
+                        src="https://www.youtube.com/embed/JBsZdOzS1sU?autoplay=1&mute=1&loop=1&playlist=JBsZdOzS1sU&controls=0&modestbranding=1&rel=0&playsinline=1"
+                        className="absolute inset-0 w-full h-full pointer-events-none"
+                        allow="autoplay"
+                        title="RepoKit CLI demo"
+                      />
+                    </button>
+                    <div className="p-7 flex flex-col gap-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="space-y-1">
+                          <h3 className="text-xl font-semibold text-(--text-primary) tracking-tight">
+                            RepoKit
+                          </h3>
+                          <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
+                            Bootstraps a Turborepo with auth, backend, infra, and
+                            sensible production defaults.
+                          </p>
+                        </div>
+                        <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
+                          CLI / TUI
+                        </span>
                       </div>
-                      <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
-                        CLI / TUI
-                      </span>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <a
+                          href={cliNpmUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200"
+                        >
+                          npm package <ExternalLinkIcon />
+                        </a>
+                        <a
+                          href={cliGithubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200"
+                        >
+                          <GitHubIcon /> GitHub
+                        </a>
+                      </div>
+                      <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
+                        <code className="inline-flex max-w-full items-center overflow-x-auto whitespace-nowrap rounded-md border border-(--border-color) bg-(--bg-tertiary) px-3 py-1.5 text-[13px] font-medium text-(--text-primary)">
+                          npx create-repokit@latest -y
+                        </code>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            copyCliCommand();
+                          }}
+                          className="inline-flex items-center justify-center gap-1.5 min-w-[98px] rounded-md border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                          title="Copy CLI command"
+                        >
+                          {cliCopied ? <CheckIcon /> : <CopyIcon />}
+                          {cliCopied ? "Copied" : "Copy"}
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href={cliNpmUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200"
-                      >
-                        npm package <ExternalLinkIcon />
-                      </a>
-                      <a
-                        href={cliGithubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200"
-                      >
-                        <GitHubIcon /> GitHub
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
-                      <code className="inline-flex max-w-full items-center overflow-x-auto whitespace-nowrap rounded-md border border-(--border-color) bg-(--bg-tertiary) px-3 py-1.5 text-[13px] font-medium text-(--text-primary)">
-                        npx create-repokit@latest -y
-                      </code>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          copyCliCommand();
-                        }}
-                        className="inline-flex items-center justify-center gap-1.5 min-w-[98px] rounded-md border border-(--border-color) bg-(--bg-secondary) px-2.5 py-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
-                        title="Copy CLI command"
-                      >
-                        {cliCopied ? <CheckIcon /> : <CopyIcon />}
-                        {cliCopied ? "Copied" : "Copy"}
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </SectionMinimal>
+                  </article>
+                </div>
+              </SectionMinimal>
             </FadeUpItem>
 
             <FadeUpItem>
