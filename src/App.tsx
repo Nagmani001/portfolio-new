@@ -133,7 +133,7 @@ export function App() {
       tech: ["TypeScript", "React", "WebSockets"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
       githubUrl: "https://github.com/Nagmani001/exchange",
-      liveUrl: "https://exchange.nagmani.site",
+      liveUrl: "https://cex.nagmani.site",
       image: exchangeCex,
     },
     {
