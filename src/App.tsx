@@ -405,28 +405,38 @@ export function App() {
 
             <FadeUpItem>
               <SectionMinimal title="Experience" id="experience" divider="medium">
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-7">
                   <ExperienceRow
-                    role="Fullstack Engineer"
-                    company={
-                      <a
-                        href="https://www.kraneapps.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-sm text-[15px] leading-tight transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                        aria-label="Krane Apps"
-                      >
-                        <img
-                          src="https://www.kraneapps.com/images/logo.png"
-                          alt="Krane Apps logo"
-                          className="block h-6 w-6 shrink-0 object-contain"
-                        />
-                        <span className="font-black tracking-tighter leading-tight text-(--text-primary)">
-                          KRANE APPS
-                        </span>
-                      </a>
+                    role="Full-Stack Engineering Intern"
+                    company="Crator"
+                    companyUrl="https://www.cratorlabs.ai/"
+                    type="Internship"
+                    startDate="2026-06"
+                    endDate={null}
+                    location="Remote"
+                    logo={
+                      <img
+                        src="/crator_logo.jpeg"
+                        alt="Crator logo"
+                        className="block h-11 w-11 rounded-lg border border-(--border-color) object-cover"
+                      />
                     }
-                    duration="2025 — Present"
+                  />
+                  <ExperienceRow
+                    role="Software Engineer"
+                    company="Krane Apps"
+                    companyUrl="https://www.kraneapps.com/"
+                    type="Freelance"
+                    startDate="2025-12"
+                    endDate="2026-06"
+                    location="Remote"
+                    logo={
+                      <img
+                        src="https://www.kraneapps.com/images/logo.png"
+                        alt="Krane Apps logo"
+                        className="block h-11 w-11 rounded-lg border border-(--border-color) object-contain bg-(--bg-secondary) p-1.5"
+                      />
+                    }
                   />
                 </div>
               </SectionMinimal>
