@@ -2,7 +2,6 @@ import devforces from "./assets/924shots_so.png"
 import { GitHubCalendar } from 'react-github-calendar';
 import lovable from "./assets/456shots_so.png"
 import codeforces from "./assets/670shots_so.png"
-import gamble from "./assets/532shots_so.png"
 import exchangeCex from "./assets/exchange-cex.png"
 import hackathonImage from "./assets/100xSchoolHackathon.png"
 import appxLogo from "./assets/appx-logo.svg"
@@ -92,6 +91,8 @@ export function App() {
   const cliGithubUrl = "https://github.com/Nagmani001";
   const hackathonUrl =
     "https://superteam.fun/earn/feed/submission/a2b6aa67-cba8-47fa-9589-2bb9783892fc";
+  const bountyWinUrl =
+    "https://superteam.fun/earn/feed/submission/64228545-cc50-4654-a814-7be2852c5404";
 
   const handleCliCardOpen = () => {
     const selectedText = window.getSelection?.()?.toString().trim();
@@ -158,16 +159,6 @@ export function App() {
       liveUrl: "https://codeforces.nagmani.site",
       image: codeforces,
       youtubeId: "5fsj7ztbcEU",
-    },
-    {
-      id: "100xgamble",
-      title: "100xGamble",
-      description:
-        "A Solana-based roulette gambling dApp — place bets, spin the wheel, and win SOL on-chain.",
-      tech: ["Solana", "TypeScript", "React"],
-      roles: [{ name: "Fullstack", type: "dev" }] as const,
-      githubUrl: "https://github.com/Nagmani001/100xGambling",
-      image: gamble,
     },
   ];
 
@@ -407,12 +398,12 @@ export function App() {
               <SectionMinimal title="Experience" id="experience" divider="medium">
                 <div className="flex flex-col gap-7">
                   <ExperienceRow
-                    role="Full-Stack Engineering Intern"
+                    role="Backend And AI Engineer"
                     company="Crator"
                     companyUrl="https://www.cratorlabs.ai/"
-                    type="Internship"
+                    type="Contract"
                     startDate="2026-06"
-                    endDate={null}
+                    endDate="2026-09"
                     location="Remote"
                     logo={
                       <img
@@ -461,42 +452,103 @@ export function App() {
             <FadeUpItem>
               <SectionMinimal title="Hackathon" id="hackathon" divider="medium">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  <a
-                    href={hackathonUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block relative w-full bg-(--bg-secondary) rounded-2xl border border-(--border-color) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-                  >
-                    {/* Aesthetic double border and inset shadow overlay */}
-                    <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
-
-                    <div className="w-full h-64 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative">
-                      <img
-                        src={hackathonImage}
-                        alt="100xSchool Solana Hackathon win banner"
-                        className="absolute inset-0 w-full h-full object-contain bg-white p-1.5"
-                      />
-                    </div>
-                    <div className="p-7">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="space-y-1">
-                          <h3 className="text-xl font-semibold text-(--text-primary)">
-                            100xSchool Solana Hackathon
-                          </h3>
-                          <p className="text-[16px] leading-relaxed text-(--text-secondary) max-w-xl">
-                            Winner at the 100xDevs-led global Solana hackathon with
-                            21 submissions and a $1,000 USDC total prize pool.
-                          </p>
-                        </div>
-                        <span className="shrink-0 text-[11px] font-medium text-(--text-muted) border border-(--border-color) rounded-md px-2 py-0.5">
-                          Winner
+                  <div className="relative pt-4 pr-4">
+                    <a
+                      href={bountyWinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="View Superteam $300 bounty win"
+                      className="group/back absolute right-0 top-0 z-0 hidden h-[88%] w-[92%] rotate-2 rounded-2xl border border-emerald-300/20 bg-linear-to-br from-emerald-400/12 via-(--bg-secondary) to-(--bg-tertiary) p-5 shadow-[0_18px_60px_rgba(16,185,129,0.08)] transition-transform duration-300 hover:translate-x-1 hover:-translate-y-1 sm:block"
+                    >
+                      <div className="flex h-full flex-col justify-end gap-2">
+                        <span className="w-fit rounded-full border border-emerald-300/25 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                          $300 bounty
+                        </span>
+                        <p className="max-w-[16rem] text-sm leading-snug text-(--text-secondary)">
+                          Another Superteam bounty win, grouped into the same proof-of-work stack.
+                        </p>
+                        <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-emerald-100/80 group-hover/back:text-emerald-100">
+                          View submission <ExternalLinkIcon />
                         </span>
                       </div>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200">
-                        View hackathon listing <ExternalLinkIcon />
-                      </span>
-                    </div>
-                  </a>
+                    </a>
+
+                    <article className="group relative z-10 w-full overflow-hidden rounded-2xl border border-(--border-color) bg-(--bg-secondary) shadow-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md">
+                      <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_4px_24px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.15),inset_0_4px_35px_rgba(255,255,255,0.2)] transition-shadow duration-300" />
+
+                      <a
+                        href={hackathonUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                      >
+                        <div className="relative h-64 w-full overflow-hidden border-b border-(--border-color) bg-(--bg-tertiary)">
+                          <img
+                            src={hackathonImage}
+                            alt="100xSchool Solana Hackathon win banner"
+                            className="absolute inset-0 h-full w-full bg-white object-contain p-1.5"
+                          />
+                        </div>
+                      </a>
+
+                      <div className="p-7">
+                        <div className="mb-4 flex items-center justify-between gap-3">
+                          <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-(--text-muted)">
+                            Superteam wins
+                          </span>
+                          <span className="rounded-full border border-(--border-color) px-2.5 py-1 text-xs font-medium text-(--text-secondary)">
+                            2 wins
+                          </span>
+                        </div>
+
+                        <div className="space-y-5">
+                          <a
+                            href={hackathonUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block space-y-1 rounded-xl transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <h3 className="text-xl font-semibold text-(--text-primary)">
+                                100xSchool Solana Hackathon
+                              </h3>
+                              <span className="shrink-0 rounded-md border border-(--border-color) px-2 py-0.5 text-[11px] font-medium text-(--text-muted)">
+                                Winner
+                              </span>
+                            </div>
+                            <p className="max-w-xl text-[16px] leading-relaxed text-(--text-secondary)">
+                              Winner at the 100xDevs-led global Solana hackathon with 21 submissions and a $1,000 USDC total prize pool.
+                            </p>
+                            <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) transition-colors hover:text-(--text-primary)">
+                              View hackathon listing <ExternalLinkIcon />
+                            </span>
+                          </a>
+
+                          <a
+                            href={bountyWinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block rounded-xl border border-emerald-300/15 bg-emerald-300/[0.03] p-4 transition-colors hover:border-emerald-300/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/40 sm:hidden"
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <h4 className="font-semibold text-(--text-primary)">
+                                Superteam bounty win
+                              </h4>
+                              <span className="shrink-0 rounded-md border border-emerald-300/25 px-2 py-0.5 text-[11px] font-medium text-emerald-200">
+                                $300
+                              </span>
+                            </div>
+                            <p className="mt-1 text-sm leading-relaxed text-(--text-secondary)">
+                              Additional bounty-winning submission on Superteam Earn.
+                            </p>
+                            <span className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted)">
+                              View submission <ExternalLinkIcon />
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
                 </div>
               </SectionMinimal>
             </FadeUpItem>
