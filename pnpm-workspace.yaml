@@ -1,0 +1,4 @@
+allowBuilds:
+  bun: false
+  esbuild: false
+  workerd: false

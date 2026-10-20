@@ -398,6 +398,20 @@ export function App() {
               <SectionMinimal title="Experience" id="experience" divider="medium">
                 <div className="flex flex-col gap-7">
                   <ExperienceRow
+                    role="Software Engineer 1"
+                    company="Disha: AI Health Coach"
+                    type="Full-time"
+                    startDate="2026-09"
+                    location="Gurugram, Haryana, India · On-site"
+                    logo={
+                      <img
+                        src="/disha_logo.svg"
+                        alt="Disha logo"
+                        className="block h-11 w-11 rounded-lg border border-(--border-color) object-cover"
+                      />
+                    }
+                  />
+                  <ExperienceRow
                     role="Backend And AI Engineer"
                     company="Crator"
                     companyUrl="https://www.cratorlabs.ai/"
