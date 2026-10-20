@@ -400,6 +400,7 @@ export function App() {
                   <ExperienceRow
                     role="Software Engineer 1"
                     company="Disha: AI Health Coach"
+                    companyUrl="https://disha.health/"
                     type="Full-time"
                     startDate="2026-09"
                     location="Gurugram, Haryana, India · On-site"
